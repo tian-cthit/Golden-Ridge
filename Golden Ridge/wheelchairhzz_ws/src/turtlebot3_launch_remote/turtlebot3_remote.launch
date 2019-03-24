@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+<!-- smach viewer launch -->
+    <node name="smach_viewer" pkg="snach_viewer" type="smach_viewer.py" required="true" output="screen"/>
+
+<!-- rviz launch -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot3_launch_remote)/rviz/turtlebot3_nav.rviz"/>
+
+
+</launch>

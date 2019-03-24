@@ -1,0 +1,8 @@
+prefix=/home/tian/wheelchair_ws/install
+
+Name: obstacle_detection
+Description: Description of obstacle_detection
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/tian/wheelchair_ws/install/lib 
+Requires: 

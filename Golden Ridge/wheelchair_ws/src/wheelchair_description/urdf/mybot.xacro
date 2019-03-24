@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+
+<robot name="mybot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <xacro:property name="frontChassisHeight" value="0.06"/>
+  <xacro:property name="frontChassisLength" value="0.15"/>
+  <xacro:property name="frontChassisWidth" value="0.44"/>
+  <xacro:property name="frontChassisMass" value="10"/>
+
+  <xacro:property name="midChassisHeight" value="0.15"/>
+  <xacro:property name="midChassisLength" value="0.4"/>
+  <xacro:property name="midChassisWidth" value="0.44"/>
+  <xacro:property name="midChassisMass" value="30"/>
+
+  <xacro:property name="rearChassisHeight" value="0.04"/>
+  <xacro:property name="rearChassisLength" value="0.2"/>
+  <xacro:property name="rearChassisWidth" value="0.3"/>
+  <xacro:property name="rearChassisMass" value="5"/>
+
+  <xacro:property name="wheelHoldHeight" value="0.25"/>
+  <xacro:property name="wheelHoldLength" value="0.35"/>
+  <xacro:property name="wheelHoldWidth" value="0.05"/>
+  <xacro:property name="wheelHoldMass" value="5"/>
+
+  <xacro:property name="wheelCoverHeight" value="0.05"/>
+  <xacro:property name="wheelCoverLength" value="0.27"/>
+  <xacro:property name="wheelCoverWidth" value="0.05"/>
+  <xacro:property name="wheelCoverMass" value="1"/>
+
+  <xacro:property name="casterRadius" value="0.08"/>
+  <xacro:property name="casterMass" value="5"/>
+
+  <xacro:property name="wheelWidth" value="0.05"/>
+  <xacro:property name="wheelRadius" value="0.115"/>
+  <xacro:property name="wheelPos" value="0"/>
+  <xacro:property name="wheelMass" value="5"/>
+
+  <xacro:property name="casterWheelWidth" value="0.03"/>
+  <xacro:property name="casterWheelRadius" value="0.08"/>
+  <xacro:property name="casterWheelPos" value="0"/>
+  <xacro:property name="casterWheelMass" value="3"/>
+
+  <xacro:property name="sonar_min_range" value="0.01"/>
+  <xacro:property name="sonar_max_range" value="3.00"/> 
+
+  <xacro:property name="cameraSize" value="0.05"/>
+  <xacro:property name="cameraMass" value="0.1"/>
+
+  <xacro:include filename="$(find wheelchair_description)/urdf/mybot.gazebo" />
+  <xacro:include filename="$(find wheelchair_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find wheelchair_description)/urdf/macros.xacro" />
+
+  <link name="footprint" />
+
+  <joint name="base_joint" type="fixed">
+    <parent link="footprint"/>
+    <child link="frontChassis"/>
+  </joint>
+
+  <link name="frontChassis">
+    <collision>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${frontChassisLength} ${frontChassisWidth} ${frontChassisHeight}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${frontChassisLength} ${frontChassisWidth} ${frontChassisHeight}"/>
+      </geometry>
+      <material name="Orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <mass value="${frontChassisMass}"/>
+      <box_inertia m="${frontChassisMass}" x="${frontChassisLength}" y="${frontChassisWidth}" z="${frontChassisHeight}"/>
+    </inertial>
+  </link>
+
+  <joint name="frontmid" type="fixed">
+  	<origin xyz="${-(frontChassisLength+midChassisLength)/2} 0 ${frontChassisHeight}" rpy="0 0 0"/>
+    <parent link="frontChassis"/>
+    <child link="midChassis"/>
+  </joint>
+
+
+
+
+ <link name="midChassis">
+    <collision>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${midChassisLength} ${midChassisWidth} ${midChassisHeight}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${midChassisLength} ${midChassisWidth} ${midChassisHeight}"/>
+      </geometry>
+      <material name="Orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <mass value="${midChassisMass}"/>
+      <box_inertia m="${midChassisMass}" x="${midChassisLength}" y="${midChassisWidth}" z="${midChassisHeight}"/>
+    </inertial>
+
+ </link>
+
+  <joint name="midrear" type="fixed">
+  	<origin xyz="${-(rearChassisLength+midChassisLength)/2} 0 ${-frontChassisHeight}" rpy="0 0 0"/>
+    <parent link="midChassis"/>
+    <child link="rearChassis"/>
+  </joint>
+
+ <link name="rearChassis">
+    <collision>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${rearChassisLength} ${rearChassisWidth} ${rearChassisHeight}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${rearChassisLength} ${rearChassisWidth} ${rearChassisHeight}"/>
+      </geometry>
+      <material name="Orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+      <mass value="${rearChassisMass}"/>
+      <box_inertia m="${rearChassisMass}" x="${rearChassisLength}" y="${rearChassisWidth}" z="${rearChassisHeight}"/>
+    </inertial>
+
+ </link>
+
+
+
+  <wheel lr="left" tY="-1"/>
+  <wheel lr="right" tY="1"/>
+
+  <casterWheel lr="left" tY="-1"/>
+  <casterWheel lr="right" tY="1"/>
+
+  <wheelHold lr="left" tY="-1"/>
+  <wheelHold lr="right" tY="1"/>
+
+  <wheelCover lr="left" tY="-1"/>
+  <wheelCover lr="right" tY="1"/>
+
+  <sonar sonarNumber="1" mountingPart="left_wheelCover" x="${wheelCoverLength/2}" y="0" z="0" roll="0" pitch="0" yaw="0"/>
+
+  <sonar sonarNumber="2" mountingPart="right_wheelCover" x="${wheelCoverLength/2}" y="0" z="0" roll="0" pitch="0" yaw="0"/>
+
+  <sonar sonarNumber="3" mountingPart="frontChassis" x="${frontChassisLength/2}" y="0.1" z="${wheelRadius}" roll="0" pitch="0" yaw="0"/>
+
+  <sonar sonarNumber="4" mountingPart="frontChassis" x="${frontChassisLength/2}" y="-0.1" z="${wheelRadius}" roll="0" pitch="0" yaw="0"/>
+
+  <sonar sonarNumber="5" mountingPart="right_wheelCover" x="${wheelCoverLength*2/5}" y="${wheelCoverWidth/2}" z="0" roll="0" pitch="0" yaw="${PI/2}"/>
+
+  <sonar sonarNumber="6" mountingPart="right_wheelHold" x="${frontChassisLength/2}" y="${wheelHoldWidth/2}" z="${wheelHoldHeight/3}" roll="0" pitch="0" yaw="${PI/2}"/>
+
+  <sonar sonarNumber="7" mountingPart="rearChassis" x="0" y="${rearChassisWidth/2}" z="${wheelRadius}" roll="0" pitch="0" yaw="${PI/2}"/>
+
+  <sonar sonarNumber="8" mountingPart="left_wheelCover" x="${wheelCoverLength*2/5}" y="${-wheelCoverWidth/2}" z="0" roll="0" pitch="0" yaw="${-PI/2}"/>
+
+  <sonar sonarNumber="9" mountingPart="left_wheelHold" x="${frontChassisLength/2}" y="${-wheelHoldWidth/2}" z="${wheelHoldHeight/3}" roll="0" pitch="0" yaw="${-PI/2}"/>
+
+  <sonar sonarNumber="10" mountingPart="rearChassis" x="0" y="${-rearChassisWidth/2}" z="${wheelRadius}" roll="0" pitch="0" yaw="${-PI/2}"/>
+
+  <sonar sonarNumber="11" mountingPart="rearChassis" x="${-rearChassisLength/2}" y="${rearChassisWidth/3}" z="${wheelRadius}" roll="0" pitch="0" yaw="${PI}"/>
+
+  <sonar sonarNumber="12" mountingPart="rearChassis" x="${-rearChassisLength/2}" y="${-rearChassisWidth/3}" z="${wheelRadius}" roll="0" pitch="0" yaw="${PI}"/>
+
+ <joint name="camera_joint" type="fixed">
+    <origin xyz="${-cameraSize+frontChassisLength/2} 0 ${cameraSize+wheelRadius+cameraSize/2}" rpy="0 0 0"/>
+    <parent link="frontChassis"/>
+    <child link="camera"/>
+  </joint>
+
+  <link name="camera">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	<box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	<box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <inertial>
+      <mass value="${cameraMass}" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="${cameraMass}" x="${cameraSize}" y="${cameraSize}" z="${cameraSize}" />
+    </inertial>
+  </link>
+
+<!-- Hokuyo Laser -->
+  <joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz=".15 0 .4" rpy="0 0 0"/>
+    <parent link="frontChassis"/>
+    <child link="hokuyo"/>
+  </joint>
+
+  <link name="hokuyo">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheelchair_description/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+</robot>

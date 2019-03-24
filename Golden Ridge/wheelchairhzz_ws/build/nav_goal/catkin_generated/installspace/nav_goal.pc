@@ -1,0 +1,8 @@
+prefix=/home/tian/wheelchairhzz_ws/install
+
+Name: nav_goal
+Description: Description of nav_goal
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/tian/wheelchairhzz_ws/install/lib 
+Requires: message_runtime

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- gazebo world launch(world+model) -->
+  <include file="$(find wheelchair_gazebo)/launch/wheelchair_world.launch" />
+
+  <!-- navigation launch (map sever + amcl + laser2scan + ekf + move base + safety&smoother) -->
+  <include file="$(find wheelchair_navigation)/launch/wheelchair_amcl.launch" />
+
+  <node name="ekf_output_data_transfer" pkg="robot_pose_ekf" type="ekf_output_data_transfer" respawn="true">
+     <remap from="robot_pose_ekf/odom_combined" to="mybot/odom_combined"/>
+     <remap from="odom" to="mybot/odom"/>
+  </node>
+
+  <!-- rviz launch -->
+  <include file="$(find wheelchair_gazebo)/launch/wheelchair_rviz.launch" />
+
+
+
+
+
+
+</launch>

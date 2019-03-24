@@ -1,0 +1,2 @@
+cmd_selector:nav_goal:obstacle_detection:turtlebot3_launch_remote:wheelchair_control:wheelchair_description:wheelchair_gazebo:wheelchair_launch:wheelchair_navigation
+-DCATKIN_DEVEL_PREFIX=/home/tian/wheelchairhzz_ws/devel -DCMAKE_INSTALL_PREFIX=/home/tian/wheelchairhzz_ws/install -G Unix Makefiles

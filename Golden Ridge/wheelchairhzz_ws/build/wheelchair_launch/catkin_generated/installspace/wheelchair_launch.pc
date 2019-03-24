@@ -1,0 +1,8 @@
+prefix=/home/tian/wheelchairhzz_ws/install
+
+Name: wheelchair_launch
+Description: Description of wheelchair_launch
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/tian/wheelchairhzz_ws/install/lib 
+Requires: 
